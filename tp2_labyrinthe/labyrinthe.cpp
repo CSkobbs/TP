@@ -1,5 +1,10 @@
 #include "labyrinthe.h"
 
+# include <algorithm>
+# include <queue>
+# include <stack>
+# include <vector>
+
 // Construit un labyrinthe sur la base du nom de fichier
 // appelle directement le constructeur de la classe mère
 Labyrinthe::Labyrinthe(const std::string& nom_fichier) :
@@ -66,5 +71,72 @@ void Labyrinthe::affichage_donnees()
 
 
 /// ICI VOS METHODES ...
+// fonctionne comme un dfs...
+void Labyrinthe::BFS(int s)
+    {
+        reset_marquages();
+        std::queue<int> q;
+        q.push(s);
+        while (!q.empty())
+        {
+            s = q.front();
+            std::cout<<s<<" ";
+            q.pop();
+            for (int i = 0; i < m_sommets[s].m_adjacents.size(); ++i)
+            {
+                if(!m_sommets[m_sommets[s].get_adjacents()[i]].est_marque())
+                {
+                    m_sommets[m_sommets[s].get_adjacents()[i]].set_marque(true); ///on le marque visité
+                    q.push(m_sommets[s].get_adjacents()[i]);
+                }
+            }    
+        }
+}
 
+void Labyrinthe::DFS(int s){
+
+    reset_marquages();
+    std::stack<int> q;
+    q.push(s);
+    while (!q.empty())
+    {
+        s = q.top();
+        std::cout<<s<<" ";
+        q.pop();
+        for (int i = 0; i < m_sommets[s].m_adjacents.size(); ++i)
+        {
+            if(!m_sommets[m_sommets[s].get_adjacents()[i]].est_marque())
+            {
+                m_sommets[m_sommets[s].get_adjacents()[i]].set_marque(true); ///on le marque visité
+                q.push(m_sommets[s].get_adjacents()[i]);
+            }
+        }    
+    }
+}
+
+void Labyrinthe::cc() 
+{
+    reset_marquages(); 
+
+    char couleur = 'A';
+
+    for (int i= 0; i< m_sommets.size(); i++)
+    {
+        if (m_sommets[i].get_carac() == '\0')
+        {
+            DFS(i);                             /// dfs pour trouver toutes les composantes possibles
+                                                //  fin dfs == nouvelle couleur
+            for (int j = 0; j< m_sommets.size(); j++)
+            {
+                if (m_sommets[j].est_marque())  
+                    m_sommets[j].set_carac(couleur); 
+            }
+            couleur += 1;                    
+            reset_marquages();                  
+            std::cout << std::endl <<"new color : " << couleur << std::endl;
+        }
+    }
+
+
+}
 
