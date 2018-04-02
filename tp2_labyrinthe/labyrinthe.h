@@ -16,6 +16,10 @@ class Labyrinthe : public Labybase
         void affichage_donnees();
 
         /// ICI VOS METHODES ...
+        void BFS(int s);
+        void DFS(int s);
+        void cc();
+
 };
 
 #endif // LABYRINTHE_H_INCLUDED

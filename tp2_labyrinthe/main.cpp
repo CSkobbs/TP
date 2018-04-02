@@ -72,6 +72,24 @@ int main()
 
         /// ICI LES APPELS A VOS METHODES BFS, DFS, Composantes Connexes...
         /// ...
+        int v,w;
+        std::cout << "enter an node to start the bfs : " << std::endl;
+        // std::cin>> v;
+
+        laby.BFS(0);
+        laby.afficher();
+
+        std::cout << std::endl << "enter an node to start the dfs : " << std::endl;
+        // std::cin>> w;
+        laby.DFS(0);
+        laby.afficher();
+
+
+        laby.cc();
+        laby.afficher();
+
+
+
 
     }
 
