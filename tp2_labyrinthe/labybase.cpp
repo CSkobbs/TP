@@ -4,7 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-
+#include <string>
 
 Labybase::Labybase(const std::string& nom_fichier)
 {
